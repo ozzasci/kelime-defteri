@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>LATİNUM NOMENUM</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary: #4B0082;
+      --secondary: #800000;
+      --success: #DAA520;
+      --font: 'Times New Roman', serif;
+      --bg: #F5F5F5;
+      --card-bg: #FFFFFF;
+      --text: #000000;
+    }
+
+    .dark-theme { --bg: #1C2526; --card-bg: #2F2F2F; --text: #E0E0E0; }
+    .purple-theme { --primary: #800080; --secondary: #4B0082; --success: #FFD700; }
+    .gladiator-theme { --primary: #8B0000; --secondary: #800000; --success: #B8860B; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 10px;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    .container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
+
+    h1 {
+      font-size: 1.2em;
+      margin: 10px 0;
+      text-align: left;
+      position: absolute;
+      top: 10px;
+      left: 60px;
+      z-index: 999;
+      color: var(--secondary);
+    }
+
+    .top-bar {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .stats { display: flex; gap: 5px; justify-content: flex-end; }
+
+    .stat-box {
+      background: var(--card-bg);
+      padding: 5px 8px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.75em;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border: 1px solid var(--success);
+    }
+
+    .stat-box h3 { margin: 0; font-size: 0.8em; color: var(--primary); }
+    .stat-box p { margin: 2px 0 0; font-size: 0.9em; }
+
+    #searchInput {
+      padding: 5px;
+      border: 1px solid var(--success);
+      border-radius: 8px;
+      font-size: 0.9em;
+      width: 120px;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .card-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      margin: 60px 0 15px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .card {
+      flex: 0 0 90%;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      scroll-snap-align: start;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--success);
+      border-radius: 20px 20px 0 0;
+    }
+
+    button {
+      background: var(--secondary);
+      color: #FFFFFF;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: opacity 0.3s, transform 0.2s;
+      min-width: 70px;
+      margin: 5px;
+      touch-action: manipulation;
+    }
+
+    button:hover { opacity: 0.9; transform: scale(1.05); }
+    #endQuizBtn, #endPuzzleBtn { background: #8B0000; }
+
+    .progress-bar {
+      height: 6px;
+      background: #D3D3D3;
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--success);
+      transition: width 0.5s ease;
+    }
+
+    h2 { font-size: 1.2em; margin: 5px 0; font-weight: 600; color: var(--primary); }
+    p { font-size: 0.9em; margin: 5px 0; opacity: 0.85; }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      padding: 10px 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      justify-content: flex-start;
+    }
+
+    .menu-container { position: fixed; top: 10px; left: 10px; z-index: 1000; }
+    .menu-btn { background: var(--primary); padding: 8px 12px; border-radius: 8px; }
+    .menu-content {
+      display: none;
+      position: absolute;
+      left: 0;
+      background: var(--card-bg);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 10px;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 1001;
+    }
+    .menu-container:hover .menu-content { display: flex; }
+
+    #addForm, #feedbackForm, #goalForm { margin: 10px 0; display: none; }
+    #addForm input, #feedbackForm textarea, #goalForm input, #wordNote {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid var(--success);
+      border-radius: 8px;
+      font-size: 14px;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    #quizOptions, #puzzleOptions { display: flex; flex-direction: column; gap: 8px; }
+    #timer { font-size: 1em; margin: 5px 0; text-align: center; color: #8B0000; }
+    canvas { max-width: 100%; margin: 10px 0; }
+    select { padding: 5px; border: 1px solid var(--success); border-radius: 8px; background: var(--card-bg); color: var(--text); }
+    #wordTable { width: 100%; border-collapse: collapse; }
+    #wordTable th, #wordTable td { border: 1px solid var(--success); padding: 8px; text-align: left; font-size: 0.9em; cursor: pointer; }
+    #wordTable th { background: var(--primary); color: #FFFFFF; }
+
+    #clock {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-size: 0.9em;
+      font-family: 'Courier New', monospace;
+      color: var(--primary);
+      background: var(--card-bg);
+      padding: 5px 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 998;
+    }
+
+    #dictionary, #quiz, #achievements, #wordList, #puzzle {
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      padding: 20px;
+      margin: 60px 0 15px;
+      min-height: 130px;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #dictionary { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 400px; z-index: 2000; }
+    #tutorial { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); color: white; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 3000; }
+
+    @media (min-width: 768px) { .card { flex: 0 0 45%; } }
+    @media (max-width: 480px) {
+      .container { padding: 0 5px; }
+      .top-bar { flex-direction: column; align-items: flex-end; gap: 5px; right: 5px; }
+      .stats { gap: 3px; }
+      .stat-box { padding: 4px 6px; font-size: 0.65em; }
+      .stat-box h3 { font-size: 0.7em; }
+      .stat-box p { font-size: 0.8em; }
+      #searchInput { width: 100px; font-size: 0.8em; }
+      .card-container { margin: 50px 0 10px; }
+      .card { padding: 12px; min-height: 200px; }
+      h1 { font-size: 0.9em; left: 45px; }
+      h2 { font-size: 1em; }
+      p { font-size: 0.85em; }
+      button { padding: 6px 10px; font-size: 11px; min-width: 60px; }
+      .controls { padding: 5px 0; }
+      .menu-container { top: 5px; left: 5px; }
+      #clock { font-size: 0.8em; top: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📚 LATİNUM NOMENUM</h1>
+    <div id="clock"></div>
+    <div class="top-bar">
+      <div class="stats">
+        <div class="stat-box"><h3>Toplam</h3><p id="totalCount">0</p></div>
+        <div class="stat-box"><h3>Öğrenilen</h3><p id="learnedCount">0</p></div>
+        <div class="stat-box"><h3>Tekrar</h3><p id="reviewCount">0</p></div>
+        <div class="stat-box"><h3>Hedef</h3><p id="goalProgress">0/0</p></div>
+        <div class="stat-box"><h3>Seviye</h3><p id="level">1</p></div>
+        <div class="stat-box"><h3>Streak</h3><p id="streakCount">0</p></div>
+      </div>
+      <input type="text" id="searchInput" placeholder="Kelime ara..." onkeyup="searchWords()">
+    </div>
+    <div class="menu-container">
+      <button class="menu-btn">☰ Menü</button>
+      <div class="menu-content">
+        <button onclick="showAddForm()">➕ Ekle</button>
+        <select id="themeSelect" onchange="changeTheme()">
+          <option value="default">Varsayılan Tema</option>
+          <option value="dark">Karanlık Tema</option>
+          <option value="purple">İmparatorluk Moru</option>
+          <option value="gladiator">Gladyatör Kırmızısı</option>
+        </select>
+        <button onclick="exportWords()">📤 Dışa Aktar</button>
+        <button onclick="showProgressChart()">📊 Grafik</button>
+        <input type="file" id="jsonFileInput" accept=".json" hidden>
+        <button onclick="document.getElementById('jsonFileInput').click()">📁 İçe Aktar</button>
+        <button onclick="showFeedbackForm()">💬 Görüşleriniz</button>
+        <button onclick="setDailyGoal()">🎯 Hedef Belirle</button>
+        <button onclick="toggleAudioQuiz()">🔊 Sesli Quiz</button>
+        <button onclick="showAchievements()">🏆 Rozetler</button>
+        <select id="categoryFilter" onchange="filterByCategory()">
+          <option value="all">Tüm Kategoriler</option>
+          <option value="Günlük">Günlük</option>
+          <option value="Akademik">Akademik</option>
+          <option value="Latince">Latince Kökenli</option>
+        </select>
+        <button onclick="showDictionary()">📖 Sözlük</button>
+        <button onclick="suggestLatinWord()">🏛 Latince Öneri</button>
+        <select id="difficultyFilter" onchange="filterByDifficulty()">
+          <option value="all">Tüm Zorluklar</option>
+          <option value="beginner">Başlangıç</option>
+          <option value="intermediate">Orta</option>
+          <option value="advanced">İleri</option>
+        </select>
+        <select id="timeFilter" onchange="filterByTime()">
+          <option value="all">Tüm Zamanlar</option>
+          <option value="last7days">Son 7 Gün</option>
+          <option value="last30days">Son 30 Gün</option>
+        </select>
+        <select id="sortOrder" onchange="sortCards()">
+          <option value="default">Varsayılan</option>
+          <option value="views">Görüntülenmeye Göre</option>
+          <option value="learned">Öğrenilmeye Göre</option>
+          <option value="added">Eklenme Tarihine Göre</option>
+        </select>
+        <button onclick="showWordList()">📋 Liste</button>
+        <button onclick="startPuzzle()">🧩 Bulmaca</button>
+        <button onclick="showFavorites()">⭐ Favoriler</button>
+      </div>
+    </div>
+    <div class="card-container" id="wordCardContainer"></div>
+    <div id="quiz" style="display:none;">
+      <h3 id="quizQuestion"></h3>
+      <p id="timer">Kalan süre: 10s</p>
+      <div id="quizOptions"></div>
+      <p id="quizResult"></p>
+      <p id="quizScore">Skor: 0/15</p>
+      <button id="endQuizBtn" onclick="endQuiz()">⏹ Quiz'i Bitir</button>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress"></div>
+    </div>
+    <div class="controls">
+      <button onclick="markLearned()">✅ Öğrendim</button>
+      <button onclick="markReview()">🔄 Tekrar</button>
+      <button onclick="showNextWord()">➡️ Sonraki</button>
+      <button onclick="startQuiz()">❓ Quiz</button>
+      <button onclick="shareWord()">📲 Paylaş</button>
+      <button onclick="toggleFavorite()">⭐ Favori</button>
+    </div>
+    <div id="addForm" style="display:none;">
+      <input type="text" id="newWord" placeholder="Kelime">
+      <input type="text" id="newMeaning" placeholder="Anlam">
+      <input type="text" id="newExample" placeholder="Örnek Cümle">
+      <select id="newCategory">
+        <option value="Günlük">Günlük</option>
+        <option value="Akademik">Akademik</option>
+        <option value="Latince">Latince Kökenli</option>
+      </select>
+      <select id="newDifficulty">
+        <option value="beginner">Başlangıç</option>
+        <option value="intermediate">Orta</option>
+        <option value="advanced">İleri</option>
+      </select>
+      <button onclick="addWord()">Kaydet</button>
+    </div>
+    <div id="feedbackForm" style="display:none;">
+      <textarea id="feedbackText" placeholder="Görüşlerinizi buraya yazın..." rows="4"></textarea>
+      <button onclick="submitFeedback()">Gönder</button>
+    </div>
+    <div id="goalForm" style="display:none;">
+      <input type="number" id="dailyGoal" placeholder="Günlük hedef (örn. 5)" min="1">
+      <button onclick="saveGoal()">Kaydet</button>
+    </div>
+    <div id="achievements" style="display:none;">
+      <h2>Rozetler</h2>
+      <p id="badgeList">Henüz rozet kazanmadınız!</p>
+    </div>
+    <div id="dictionary" style="display:none;">
+      <h2>Latince-Türkçe Sözlük</h2>
+      <div id="dictionaryList"></div>
+      <button onclick="hideDictionary()">⏹ Kapat</button>
+    </div>
+    <div id="wordList" style="display:none;">
+      <h2>Kelime Listesi</h2>
+      <table id="wordTable">
+        <tr><th onclick="sortTable(0)">Kelime</th><th onclick="sortTable(1)">Anlam</th><th onclick="sortTable(2)">Kategori</th><th onclick="sortTable(3)">Zorluk</th><th>İşlem</th></tr>
+      </table>
+      <button onclick="hideWordList()">⏹ Listeyi Kapat</button>
+    </div>
+    <div id="puzzle" style="display:none;">
+      <h3 id="puzzleQuestion"></h3>
+      <input type="text" id="puzzleAnswer" placeholder="Cevabınızı yazın">
+      <button onclick="checkPuzzle()">Kontrol Et</button>
+      <p id="puzzleResult"></p>
+      <button id="endPuzzleBtn" onclick="endPuzzle()">⏹ Bulmacayı Bitir</button>
+    </div>
+    <canvas id="progressChart" style="display:none;"></canvas>
+    <div id="tutorial">
+      <h2>Hoş Geldiniz!</h2>
+      <p>1. Menüden kelime ekleyin: ➕</p>
+      <p>2. Kelimeleri öğrenin: ✅</p>
+      <p>3. Quiz ile test edin: ❓</p>
+      <button onclick="closeTutorial()">Başla</button>
+    </div>
+  </div>
+  <p id="importStatus" style="text-align: center; margin: 10px 0;"></p>
+  <audio id="correctSound" src="https://www.myinstants.com/media/sounds/correct.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="https://www.myinstants.com/media/sounds/wrong.mp3" preload="auto"></audio>
+
+  <script>
+    let words = JSON.parse(localStorage.getItem('words')) || [];
+    let currentIndex = 0;
+    let wordsToShow = words;
+    let quizQuestions = [];
+    let quizIndex = 0;
+    let quizScore = 0;
+    let quizTimer;
+    let dailyGoal = parseInt(localStorage.getItem('dailyGoal')) || 0;
+    let isAudioQuiz = false;
+    let badges = JSON.parse(localStorage.getItem('badges')) || [];
+    let quizCompleted = parseInt(localStorage.getItem('quizCompleted')) || 0;
+    let errorLog = [];
+    let userLevel = parseInt(localStorage.getItem('userLevel')) || 1;
+    let puzzleWords = [];
+    let puzzleIndex = 0;
+    let streak = parseInt(localStorage.getItem('streak')) || 0;
+    let lastStreakDate = localStorage.getItem('lastStreakDate');
+
+    const latinWords = [
+      { term: "salve", definition: "merhaba", example: "Salve, dostum!", category: "Latince", difficulty: "beginner", location: "Roma" },
+      { term: "victoria", definition: "zafer", example: "Victoria bizimdir!", category: "Latince", difficulty: "intermediate", location: "Konstantinopolis" },
+      { term: "pax", definition: "barış", example: "Pax Roma’dır.", category: "Latince", difficulty: "beginner", location: "Roma" }
+    ];
+
+    const dictionary = {
+      "amo": "sevmek", "bellum": "savaş", "luna": "ay", "sol": "güneş", "vita": "hayat",
+      "rex": "kral", "domus": "ev", "aqua": "su", "ignis": "ateş", "terra": "toprak",
+      "mare": "deniz", "nox": "gece", "lux": "ışık", "familia": "aile", "tempus": "zaman"
+    };
+
+    if (words.length === 0) {
+      words = [{
+        term: "Merhaba",
+        definition: "Selam",
+        example: "Merhaba, nasılsın?",
+        score: 0,
+        views: 0,
+        learnedCount: 0,
+        added: new Date().toISOString(),
+        category: "Günlük",
+        difficulty: "beginner",
+        notes: "",
+        nextReview: null,
+        location: "Ankara",
+        isFavorite: false
+      }];
+      wordsToShow = words;
+      localStorage.setItem('words', JSON.stringify(words));
+    }
+
+    function init() {
+      updateStats();
+      renderCards();
+      checkAchievements();
+      updateClock();
+      scheduleDailyReminder();
+      if (!localStorage.getItem('tutorialShown')) showTutorial();
+    }
+
+    function renderCards() {
+      const container = document.getElementById('wordCardContainer');
+      container.innerHTML = '';
+      if (wordsToShow.length === 0) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<h2>Liste boş</h2><p>Kelime ekleyin!</p>`;
+        container.appendChild(card);
+        return;
+      }
+
+      wordsToShow.forEach((word, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h2>${word.term}</h2>
+          <p>/telaffuz/</p>
+          <button onclick="speakWord(event, ${index})">🔊 Oynat</button>
+          <button onclick="toggleMeaning(${index})">Anlamı Göster</button>
+          <div id="meaning${index}" style="display: none;">
+            <p>${word.definition}</p>
+            <p>${word.example}</p>
+            <p>${word.location ? `Köken: ${word.location}` : ''}</p>
+          </div>
+          <p>Görüntülenme: ${word.views || 0}, Öğrenilme: ${word.learnedCount || 0}</p>
+          <button onclick="quickQuiz(${index}, true)">✅ Biliyorum</button>
+          <button onclick="quickQuiz(${index}, false)">❌ Bilmiyorum</button>
+          <textarea id="wordNote${index}" placeholder="Not ekle..." onchange="saveNote(${index})">${word.notes || ''}</textarea>
+        `;
+        container.appendChild(card);
+      });
+      container.scrollTo({ left: currentIndex * (container.offsetWidth * 0.9 + 10), behavior: 'smooth' });
+      updateProgress();
+    }
+
+    function toggleMeaning(index) {
+      const meaningDiv = document.getElementById(`meaning${index}`);
+      meaningDiv.style.display = meaningDiv.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function quickQuiz(index, knows) {
+      const word = wordsToShow[index];
+      if (knows) {
+        word.score = (word.score || 0) + 1;
+        word.learnedCount = (word.learnedCount || 0) + 1;
+        document.getElementById('correctSound').play();
+        alert("✅ Harika, biliyorsun!");
+      } else {
+        word.score = (word.score || 0) - 1;
+        document.getElementById('wrongSound').play();
+        alert("❌ Biraz daha çalışalım!");
+      }
+      saveData();
+      checkAchievements();
+      renderCards();
+    }
+
+    function showNextWord() {
+      if (wordsToShow.length === 0) return;
+      currentIndex = (currentIndex + 1) % wordsToShow.length;
+      wordsToShow[currentIndex].views = (wordsToShow[currentIndex].views || 0) + 1;
+      saveData();
+      const container = document.getElementById('wordCardContainer');
+      container.scrollTo({ left: currentIndex * (container.offsetWidth * 0.9 + 10), behavior: 'smooth' });
+      updateProgress();
+    }
+
+    function showPreviousWord() {
+      if (wordsToShow.length === 0) return;
+      currentIndex = (currentIndex - 1 + wordsToShow.length) % wordsToShow.length;
+      wordsToShow[currentIndex].views = (wordsToShow[currentIndex].views || 0) + 1;
+      saveData();
+      const container = document.getElementById('wordCardContainer');
+      container.scrollTo({ left: currentIndex * (container.offsetWidth * 0.9 + 10), behavior: 'smooth' });
+      updateProgress();
+    }
+
+    function updateClock() {
+      const clock = document.getElementById('clock');
+      setInterval(() => {
+        const now = new Date();
+        const time = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const date = now.toLocaleDateString('tr-TR', { day: '2-digit', month: 'long', year: 'numeric' });
+        clock.textContent = `${time} | ${date}`;
+      }, 1000);
+    }
+
+    function importJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const newWords = JSON.parse(e.target.result);
+          const existingWords = JSON.parse(localStorage.getItem('words')) || [];
+          const uniqueNewWords = newWords.filter(newWord => 
+            !existingWords.some(existingWord => existingWord.term.toLowerCase() === newWord.term.toLowerCase())
+          );
+          const updatedWords = [...existingWords, ...uniqueNewWords];
+          localStorage.setItem('words', JSON.stringify(updatedWords));
+          document.getElementById('importStatus').textContent = `✅ ${uniqueNewWords.length} kelime eklendi!`;
+          words = updatedWords;
+          wordsToShow = words;
+          currentIndex = 0;
+          renderCards();
+          updateStats();
+        } catch (error) {
+          document.getElementById('importStatus').textContent = "❌ Hatalı JSON formatı!";
+          logError("JSON parse hatası:", error);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    document.getElementById('jsonFileInput').addEventListener('change', importJSON);
+
+    function markLearned() {
+      if (wordsToShow.length === 0) return;
+      wordsToShow[currentIndex].score = (wordsToShow[currentIndex].score || 0) + 2;
+      wordsToShow[currentIndex].learnedCount = (wordsToShow[currentIndex].learnedCount || 0) + 1;
+      wordsToShow[currentIndex].nextReview = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+      updateStreak();
+      saveData();
+      checkAchievements();
+      updateLevel();
+      showNextWord();
+    }
+
+    function markReview() {
+      if (wordsToShow.length === 0) return;
+      wordsToShow[currentIndex].score = (wordsToShow[currentIndex].score || 0) - 1;
+      wordsToShow[currentIndex].nextReview = new Date(Date.now() + 60 * 60 * 1000).toISOString();
+      saveData();
+      showNextWord();
+    }
+
+    function updateStats() {
+      document.getElementById('totalCount').textContent = words.length;
+      const learned = words.filter(w => (w.score || 0) > 3).length;
+      const review = words.filter(w => (w.score || 0) <= 3).length;
+      document.getElementById('learnedCount').textContent = learned;
+      document.getElementById('reviewCount').textContent = review;
+      document.getElementById('goalProgress').textContent = `${learned}/${dailyGoal}`;
+      document.getElementById('level').textContent = userLevel;
+      document.getElementById('streakCount').textContent = streak;
+    }
+
+    function updateProgress() {
+      const progress = dailyGoal > 0 ? (words.filter(w => (w.score || 0) > 3).length / dailyGoal * 100) : (currentIndex + 1) / wordsToShow.length * 100;
+      document.getElementById('progress').style.width = `${Math.min(progress, 100)}%`;
+    }
+
+    function updateLevel() {
+      const learnedCount = words.filter(w => (w.score || 0) > 3).length;
+      userLevel = Math.floor(learnedCount / 10) + 1;
+      localStorage.setItem('userLevel', userLevel);
+      updateStats();
+    }
+
+    function updateStreak() {
+      const today = new Date().toDateString();
+      if (lastStreakDate !== today) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (lastStreakDate === yesterday.toDateString()) streak++;
+        else streak = 1;
+        localStorage.setItem('streak', streak);
+        localStorage.setItem('lastStreakDate', today);
+      }
+      updateStats();
+    }
+
+    function showAddForm() {
+      resetAddForm();
+      document.getElementById('addForm').style.display = 'block';
+    }
+
+    function addWord() {
+      const term = document.getElementById('newWord').value.trim();
+      const definition = document.getElementById('newMeaning').value.trim();
+      const example = document.getElementById('newExample').value.trim();
+
+      if (!term || !definition || !example || term.length < 2 || definition.length < 2 || example.length < 2) {
+        alert("Lütfen tüm alanları en az 2 karakterle doldurun!");
+        return;
+      }
+
+      if (/[^a-zA-ZğüşıöçĞÜŞİÖÇ\s]/.test(term)) {
+        alert("Kelime özel karakter içeremez!");
+        return;
+      }
+
+      if (words.some(word => word.term.toLowerCase() === term.toLowerCase())) {
+        alert("Bu kelime zaten listede mevcut!");
+        return;
+      }
+
+      const newWord = {
+        term, definition, example,
+        score: 0, views: 0, learnedCount: 0,
+        added: new Date().toISOString(),
+        category: document.getElementById('newCategory').value,
+        difficulty: document.getElementById('newDifficulty').value,
+        notes: "", nextReview: null, location: "Belirtilmemiş", isFavorite: false
+      };
+      words.push(newWord);
+      wordsToShow = words;
+      saveData();
+      updateStats();
+      document.getElementById('addForm').style.display = 'none';
+      resetAddForm();
+      renderCards();
+    }
+
+    function speakWord(event, index) {
+      event.stopPropagation();
+      const word = wordsToShow[index].term;
+      try {
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = 'tr-TR';
+        window.speechSynthesis.speak(utterance);
+      } catch (error) {
+        alert("Ses oynatma hatası! Tarayıcınız desteklemiyor olabilir.");
+        logError("SpeechSynthesis hatası:", error);
+      }
+    }
+
+    function shareWord() {
+      const word = wordsToShow[currentIndex];
+      const text = `${word.term}: ${word.definition} - "${word.example}" #LatinumNomenum`;
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    function suggestLatinWord() {
+      const randomWord = latinWords[Math.floor(Math.random() * latinWords.length)];
+      if (words.some(word => word.term.toLowerCase() === randomWord.term.toLowerCase())) {
+        alert("Bu Latince kelime zaten listede! Başka bir öneri deneyin.");
+        return;
+      }
+      words.push({ ...randomWord, score: 0, views: 0, learnedCount: 0, added: new Date().toISOString(), notes: "", nextReview: null, isFavorite: false });
+      wordsToShow = words;
+      saveData();
+      updateStats();
+      renderCards();
+    }
+
+    function searchWords() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      wordsToShow = words.filter(word => 
+        word.term.toLowerCase().includes(query) || 
+        word.definition.toLowerCase().includes(query)
+      );
+      currentIndex = 0;
+      renderCards();
+    }
+
+    function exportWords() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(words));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "kelime_defteri.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function changeTheme() {
+      const theme = document.getElementById('themeSelect').value;
+      document.body.classList.remove('dark-theme', 'purple-theme', 'gladiator-theme');
+      if (theme === 'dark') document.body.classList.add('dark-theme');
+      else if (theme === 'purple') document.body.classList.add('purple-theme');
+      else if (theme === 'gladiator') document.body.classList.add('gladiator-theme');
+      localStorage.setItem('theme', theme);
+    }
+
+    function showFeedbackForm() { document.getElementById('feedbackForm').style.display = 'block'; }
+
+    function submitFeedback() {
+      const feedback = document.getElementById('feedbackText').value.trim();
+      if (feedback) {
+        console.log("Görüş:", feedback);
+        alert("Görüşleriniz için teşekkürler!");
+        document.getElementById('feedbackText').value = '';
+        document.getElementById('feedbackForm').style.display = 'none';
+      } else {
+        alert("Lütfen görüşlerinizi yazın!");
+      }
+    }
+
+    function setDailyGoal() { document.getElementById('goalForm').style.display = 'block'; }
+
+    function saveGoal() {
+      dailyGoal = parseInt(document.getElementById('dailyGoal').value) || 0;
+      localStorage.setItem('dailyGoal', dailyGoal);
+      document.getElementById('goalForm').style.display = 'none';
+      updateStats();
+      updateProgress();
+    }
+
+    function toggleAudioQuiz() {
+      isAudioQuiz = !isAudioQuiz;
+      alert(`Sesli Quiz: ${isAudioQuiz ? 'Açık' : 'Kapalı'}`);
+    }
+
+    function toggleFavorite() {
+      if (wordsToShow.length === 0) return;
+      wordsToShow[currentIndex].isFavorite = !wordsToShow[currentIndex].isFavorite;
+      saveData();
+      alert(`"${wordsToShow[currentIndex].term}" ${wordsToShow[currentIndex].isFavorite ? 'favorilere eklendi!' : 'favorilerden çıkarıldı!'}`);
+      renderCards();
+    }
+
+    function showFavorites() {
+      wordsToShow = words.filter(word => word.isFavorite);
+      currentIndex = 0;
+      renderCards();
+      if (wordsToShow.length === 0) alert("Favori kelime yok!");
+    }
+
+    function startQuiz() {
+      if (words.length < 4) {
+        alert("Quiz için en az 4 kelime gerekli!");
+        return;
+      }
+      document.getElementById('wordCardContainer').style.display = 'none';
+      document.getElementById('quiz').style.display = 'block';
+      quizQuestions = [];
+      let availableWords = [...words];
+      shuffleArray(availableWords);
+      for (let i = 0; i < Math.min(15, availableWords.length); i++) {
+        quizQuestions.push(availableWords[i]);
+      }
+      quizIndex = 0;
+      quizScore = 0;
+      document.getElementById('quizScore').textContent = `Skor: ${quizScore}/15`;
+      showQuizQuestion();
+    }
+
+    function showQuizQuestion() {
+      if (quizIndex >= quizQuestions.length) {
+        endQuiz();
+        return;
+      }
+      const currentWord = quizQuestions[quizIndex];
+      document.getElementById('quizQuestion').textContent = `"${currentWord.term}" kelimesinin anlamı?`;
+      document.getElementById('quizResult').textContent = "";
+      if (isAudioQuiz) {
+        const utterance = new SpeechSynthesisUtterance(currentWord.term);
+        utterance.lang = 'tr-TR';
+        window.speechSynthesis.speak(utterance);
+      }
+      const options = [currentWord.definition];
+      while (options.length < 4 && words.length > options.length) {
+        const randomOption = words[Math.floor(Math.random() * words.length)].definition;
+        if (!options.includes(randomOption)) options.push(randomOption);
+      }
+      shuffleArray(options);
+      const optionsDiv = document.getElementById('quizOptions');
+      optionsDiv.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt, currentWord.definition);
+        optionsDiv.appendChild(btn);
+      });
+      let timeLeft = 10;
+      document.getElementById('timer').textContent = `Kalan süre: ${timeLeft}s`;
+      clearInterval(quizTimer);
+      quizTimer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').textContent = `Kalan süre: ${timeLeft}s`;
+        if (timeLeft <= 0) {
+          clearInterval(quizTimer);
+          document.getElementById('quizResult').textContent = "⏰ Süre doldu!";
+          document.getElementById('wrongSound').play();
+          setTimeout(nextQuizQuestion, 1000);
+        }
+      }, 1000);
+    }
+
+    function checkAnswer(selected, correct) {
+      clearInterval(quizTimer);
+      const result = document.getElementById('quizResult');
+      if (selected === correct) {
+        quizScore++;
+        result.textContent = '✅ Doğru!';
+        document.getElementById('correctSound').play();
+      } else {
+        result.textContent = '❌ Yanlış!';
+        document.getElementById('wrongSound').play();
+      }
+      document.getElementById('quizScore').textContent = `Skor: ${quizScore}/15`;
+      setTimeout(nextQuizQuestion, 1000);
+    }
+
+    function nextQuizQuestion() {
+      quizIndex++;
+      showQuizQuestion();
+    }
+
+    function endQuiz() {
+      clearInterval(quizTimer);
+      document.getElementById('quizQuestion').textContent = "Quiz Bitti!";
+      document.getElementById('quizOptions').innerHTML = '';
+      document.getElementById('timer').textContent = "";
+      document.getElementById('quizResult').textContent = `Sonuç: ${quizScore}/15 doğru cevap! Skorunu paylaş: `;
+      const shareBtn = document.createElement('button');
+      shareBtn.textContent = "📲 Paylaş";
+      shareBtn.onclick = () => shareQuizScore();
+      document.getElementById('quizResult').appendChild(shareBtn);
+      document.getElementById('endQuizBtn').style.display = 'none';
+      quizCompleted++;
+      localStorage.setItem('quizCompleted', quizCompleted);
+      checkAchievements();
+      setTimeout(() => {
+        document.getElementById('quiz').style.display = 'none';
+        document.getElementById('wordCardContainer').style.display = 'flex';
+        document.getElementById('endQuizBtn').style.display = 'block';
+      }, 3000);
+    }
+
+    function shareQuizScore() {
+      const text = `LATİNUM NOMENUM Quiz Skorum: ${quizScore}/15! #LatinumNomenum`;
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function showAchievements() {
+      document.getElementById('achievements').style.display = 'block';
+      const badgeList = document.getElementById('badgeList');
+      badgeList.textContent = badges.length > 0 ? badges.join(', ') : "Henüz rozet kazanmadınız!";
+    }
+
+    function checkAchievements() {
+      const learnedCount = words.filter(w => (w.score || 0) > 3).length;
+      if (learnedCount >= 10 && !badges.includes("Legionarius")) badges.push("Legionarius");
+      if (learnedCount >= 50 && !badges.includes("Centurion")) badges.push("Centurion");
+      if (quizCompleted >= 5 && !badges.includes("Gladiator")) badges.push("Gladiator");
+      if (learnedCount >= 100 && !badges.includes("Senator")) badges.push("Senator");
+
+      // Kart Koleksiyonu
+      const categories = ["Günlük", "Akademik", "Latince"];
+      const difficulties = ["beginner", "intermediate", "advanced"];
+      categories.forEach(cat => {
+        const catLearned = words.filter(w => w.category === cat && (w.score || 0) > 3).length;
+        if (catLearned >= 5 && !badges.includes(`${cat} Koleksiyoncusu`)) badges.push(`${cat} Koleksiyoncusu`);
+      });
+      difficulties.forEach(diff => {
+        const diffLearned = words.filter(w => w.difficulty === diff && (w.score || 0) > 3).length;
+        if (diffLearned >= 5 && !badges.includes(`${diff} Ustası`)) badges.push(`${diff} Ustası`);
+      });
+
+      localStorage.setItem('badges', JSON.stringify(badges));
+      document.getElementById('badgeList').textContent = badges.length > 0 ? badges.join(', ') : "Henüz rozet kazanmadınız!";
+    }
+
+    function filterByCategory() {
+      const category = document.getElementById('categoryFilter').value;
+      wordsToShow = category === 'all' ? words : words.filter(word => word.category === category);
+      currentIndex = 0;
+      renderCards();
+    }
+
+    function filterByDifficulty() {
+      const difficulty = document.getElementById('difficultyFilter').value;
+      wordsToShow = difficulty === 'all' ? words : words.filter(word => word.difficulty === difficulty);
+      currentIndex = 0;
+      renderCards();
+    }
+
+    function filterByTime() {
+      const timeFilter = document.getElementById('timeFilter').value;
+      const now = new Date();
+      if (timeFilter === 'last7days') {
+        wordsToShow = words.filter(word => new Date(word.added) >= new Date(now.setDate(now.getDate() - 7)));
+      } else if (timeFilter === 'last30days') {
+        wordsToShow = words.filter(word => new Date(word.added) >= new Date(now.setDate(now.getDate() - 30)));
+      } else {
+        wordsToShow = words;
+      }
+      currentIndex = 0;
+      renderCards();
+    }
+
+    function sortCards() {
+      const sortOrder = document.getElementById('sortOrder').value;
+      if (sortOrder === 'views') {
+        wordsToShow.sort((a, b) => (b.views || 0) - (a.views || 0));
+      } else if (sortOrder === 'learned') {
+        wordsToShow.sort((a, b) => (b.learnedCount || 0) - (a.learnedCount || 0));
+      } else if (sortOrder === 'added') {
+        wordsToShow.sort((a, b) => new Date(b.added) - new Date(a.added));
+      } else {
+        wordsToShow = [...words];
+      }
+      currentIndex = 0;
+      renderCards();
+    }
+
+    function saveNote(index) {
+      if (wordsToShow.length === 0) return;
+      wordsToShow[index].notes = document.getElementById(`wordNote${index}`).value;
+      saveData();
+    }
+
+    function showDictionary() {
+      document.getElementById('dictionary').style.display = 'block';
+      const dictList = document.getElementById('dictionaryList');
+      dictList.innerHTML = '';
+      const dictArray = Object.entries(dictionary);
+      const shuffledDict = shuffleArray([...dictArray]);
+      const selectedWords = shuffledDict.slice(0, 10);
+      selectedWords.forEach(([latin, turkish]) => {
+        const p = document.createElement('p');
+        p.textContent = `${latin}: ${turkish}`;
+        dictList.appendChild(p);
+      });
+    }
+
+    function hideDictionary() { document.getElementById('dictionary').style.display = 'none'; }
+
+    function showWordList() {
+      document.getElementById('wordList').style.display = 'block';
+      const table = document.getElementById('wordTable');
+      table.innerHTML = '<tr><th onclick="sortTable(0)">Kelime</th><th onclick="sortTable(1)">Anlam</th><th onclick="sortTable(2)">Kategori</th><th onclick="sortTable(3)">Zorluk</th><th>İşlem</th></tr>';
+      const validWords = words.filter(word => word.term && word.definition);
+      validWords.forEach((word, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${word.term || 'Bilinmiyor'}</td>
+          <td>${word.definition || 'Bilinmiyor'}</td>
+          <td>${word.category || 'Bilinmiyor'}</td>
+          <td>${word.difficulty || 'Bilinmiyor'}</td>
+          <td>
+            <button onclick="editWord(${index})">✏️</button>
+            <button onclick="deleteWord(${index})">🗑️</button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+    function sortTable(column) {
+      const key = ['term', 'definition', 'category', 'difficulty'][column];
+      words.sort((a, b) => (a[key] || '').localeCompare(b[key] || ''));
+      showWordList();
+      renderCards();
+    }
+
+    function editWord(index) {
+      const word = words[index];
+      document.getElementById('newWord').value = word.term || '';
+      document.getElementById('newMeaning').value = word.definition || '';
+      document.getElementById('newExample').value = word.example || '';
+      document.getElementById('newCategory').value = word.category || 'Günlük';
+      document.getElementById('newDifficulty').value = word.difficulty || 'beginner';
+      document.getElementById('addForm').style.display = 'block';
+      const saveBtn = document.querySelector('#addForm button');
+      saveBtn.textContent = "Güncelle";
+      saveBtn.onclick = () => updateWord(index);
+    }
+
+    function updateWord(index) {
+      const term = document.getElementById('newWord').value.trim();
+      const definition = document.getElementById('newMeaning').value.trim();
+      const example = document.getElementById('newExample').value.trim();
+      if (!term || !definition || !example || term.length < 2 || definition.length < 2 || example.length < 2) {
+        alert("Lütfen tüm alanları en az 2 karakterle doldurun!");
+        return;
+      }
+      if (/[^a-zA-ZğüşıöçĞÜŞİÖÇ\s]/.test(term)) {
+        alert("Kelime özel karakter içeremez!");
+        return;
+      }
+      if (words.some((word, i) => word.term.toLowerCase() === term.toLowerCase() && i !== index)) {
+        alert("Bu kelime zaten listede mevcut!");
+        return;
+      }
+      words[index] = {
+        ...words[index],
+        term, definition, example,
+        category: document.getElementById('newCategory').value,
+        difficulty: document.getElementById('newDifficulty').value
+      };
+      wordsToShow = words;
+      saveData();
+      showWordList();
+      document.getElementById('addForm').style.display = 'none';
+      resetAddForm();
+      renderCards();
+    }
+
+    function deleteWord(index) {
+      if (confirm("Bu kelimeyi silmek istediğinizden emin misiniz?")) {
+        words.splice(index, 1);
+        wordsToShow = words;
+        saveData();
+        showWordList();
+        if (currentIndex >= words.length) currentIndex = words.length - 1;
+        renderCards();
+      }
+    }
+
+    function resetAddForm() {
+      document.getElementById('newWord').value = '';
+      document.getElementById('newMeaning').value = '';
+      document.getElementById('newExample').value = '';
+      const saveBtn = document.querySelector('#addForm button');
+      saveBtn.textContent = "Kaydet";
+      saveBtn.onclick = addWord;
+    }
+
+    function hideWordList() { document.getElementById('wordList').style.display = 'none'; }
+
+    function startPuzzle() {
+      if (words.length < 5) {
+        alert("Bulmaca için en az 5 kelime gerekli!");
+        return;
+      }
+      document.getElementById('wordCardContainer').style.display = 'none';
+      document.getElementById('puzzle').style.display = 'block';
+      puzzleWords = [];
+      let availableWords = [...words];
+      shuffleArray(availableWords);
+      for (let i = 0; i < 5; i++) {
+        puzzleWords.push(availableWords[i]);
+      }
+      puzzleIndex = 0;
+      showPuzzleQuestion();
+    }
+
+    function showPuzzleQuestion() {
+      if (puzzleIndex >= puzzleWords.length) {
+        endPuzzle();
+        return;
+      }
+      const word = puzzleWords[puzzleIndex];
+      const scrambled = shuffleArray(word.term.split('')).join('');
+      document.getElementById('puzzleQuestion').textContent = `Kelime ${puzzleIndex + 1}/5: ${scrambled}`;
+      document.getElementById('puzzleAnswer').value = '';
+      document.getElementById('puzzleResult').textContent = '';
+    }
+
+    function checkPuzzle() {
+      const answer = document.getElementById('puzzleAnswer').value.trim().toLowerCase();
+      const currentWord = puzzleWords[puzzleIndex];
+      if (currentWord.term.toLowerCase() === answer) {
+        document.getElementById('puzzleResult').textContent = '✅ Doğru!';
+        document.getElementById('correctSound').play();
+      } else {
+        document.getElementById('puzzleResult').textContent = '❌ Yanlış!';
+        document.getElementById('wrongSound').play();
+      }
+      setTimeout(() => {
+        puzzleIndex++;
+        showPuzzleQuestion();
+      }, 1000);
+    }
+
+    function endPuzzle() {
+      document.getElementById('puzzle').style.display = 'none';
+      document.getElementById('wordCardContainer').style.display = 'flex';
+      document.getElementById('puzzleResult').textContent = 'Bulmaca tamamlandı!';
+      setTimeout(() => document.getElementById('puzzleResult').textContent = '', 2000);
+    }
+
+    function showProgressChart() {
+      const chartCanvas = document.getElementById('progressChart');
+      chartCanvas.style.display = 'block';
+      const ctx = chartCanvas.getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: words.map(w => w.added.split('T')[0]),
+          datasets: [{
+            label: 'Öğrenilen Kelimeler',
+            data: words.map(w => (w.score || 0) > 3 ? 1 : 0),
+            borderColor: 'var(--success)',
+            fill: false
+          }]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+      });
+    }
+
+    function requestNotificationPermission() {
+      if (Notification.permission !== 'granted') {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') console.log('Bildirim izni verildi.');
+        });
+      }
+    }
+
+    function sendNotification(title, body) {
+      if (Notification.permission === 'granted') new Notification(title, { body });
+    }
+
+    function scheduleDailyReminder() {
+      setInterval(() => {
+        const now = new Date();
+        if (now.getHours() === 9 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+          sendNotification("Günlük Hatırlatma", "Bugün kelime öğrenmeyi unutma!");
+        }
+      }, 1000);
+    }
+
+    function scheduleReminders() {
+      setInterval(() => {
+        const now = new Date();
+        const wordsToReview = words.filter(word => word.nextReview && new Date(word.nextReview) <= now);
+        if (wordsToReview.length > 0) {
+          const randomIndex = Math.floor(Math.random() * wordsToReview.length);
+          const word = wordsToReview[randomIndex];
+          sendNotification('Kelime Tekrarı', `${word.term}: ${word.definition}`);
+        }
+      }, 60000);
+    }
+
+    function logError(message, error) {
+      errorLog.push({ message, error: error.toString(), time: new Date().toISOString() });
+      console.error(message, error);
+    }
+
+    function showTutorial() {
+      document.getElementById('tutorial').style.display = 'flex';
+      localStorage.setItem('tutorialShown', 'true');
+    }
+
+    function closeTutorial() { document.getElementById('tutorial').style.display = 'none'; }
+
+    function saveData() {
+      localStorage.setItem('words', JSON.stringify(words));
+      updateStats();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        showNextWord();
+        alert("➡️ Sonraki karta geçtin!");
+      }
+      if (e.key === 'ArrowLeft') {
+        showPreviousWord();
+        alert("⬅️ Önceki karta geçtin!");
+      }
+      if (e.key === 'Enter') markLearned();
+      if (e.key === 'r' || e.key === 'R') markReview();
+    });
+
+    window.onload = () => {
+      const savedTheme = localStorage.getItem('theme') || 'default';
+      document.getElementById('themeSelect').value = savedTheme;
+      changeTheme();
+      requestNotificationPermission();
+      scheduleReminders();
+      init();
+    };
+  </script>
+</body>
+</html>

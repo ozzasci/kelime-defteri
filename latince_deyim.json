@@ -1,0 +1,698 @@
+[
+  {
+    "term": "Obsta principiis",
+    "definition": "Başlangıçlara engel ol",
+    "example": "Obsta principiis warned them to stop trouble early",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "prevention"]
+  },
+  {
+    "term": "Ora pro vita",
+    "definition": "Hayat için dua et",
+    "example": "Ora pro vita was whispered during the crisis",
+    "category": "Religion",
+    "difficulty": 2,
+    "tags": ["latin", "prayer"]
+  },
+  {
+    "term": "Ora et labora et lege",
+    "definition": "Dua et, çalış ve oku",
+    "example": "Ora et labora et lege guided their disciplined life",
+    "category": "Religion",
+    "difficulty": 3,
+    "tags": ["latin", "discipline"]
+  },
+  {
+    "term": "Omnes vulnerant, ultima necat",
+    "definition": "Her saat yaralar, sonuncusu öldürür",
+    "example": "Omnes vulnerant, ultima necat reflects the passage of time",
+    "category": "Philosophy",
+    "difficulty": 4,
+    "tags": ["latin", "time", "death"]
+  },
+  {
+    "term": "Omnia vincit veritas",
+    "definition": "Gerçek her şeyi yener",
+    "example": "Omnia vincit veritas prevailed in the trial",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "truth"]
+  },
+  {
+    "term": "Omnia causa fiunt",
+    "definition": "Her şey bir sebeple olur",
+    "example": "Omnia causa fiunt comforted her after the loss",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "cause"]
+  },
+  {
+    "term": "Omnes una manet nox",
+    "definition": "Hepimizi tek bir gece bekler",
+    "example": "Omnes una manet nox reminded them of mortality",
+    "category": "Philosophy",
+    "difficulty": 4,
+    "tags": ["latin", "death"]
+  },
+  {
+    "term": "Ora et labora et lege, Deus adest sine mora",
+    "definition": "Dua et, çalış, oku; Tanrı gecikmeden yanındadır",
+    "example": "Ora et labora et lege, Deus adest sine mora was their daily mantra",
+    "category": "Religion",
+    "difficulty": 4,
+    "tags": ["latin", "faith", "discipline"]
+  },
+  {
+    "term": "Optimum medicamentum quies est",
+    "definition": "En iyi ilaç dinlenmedir",
+    "example": "Optimum medicamentum quies est soothed the weary",
+    "category": "Medicine",
+    "difficulty": 3,
+    "tags": ["latin", "health"]
+  },
+  {
+    "term": "Omnia fidelia mundum creant",
+    "definition": "Her inanç dünyayı şekillendirir",
+    "example": "Omnia fidelia mundum creant inspired their worldview",
+    "category": "Philosophy",
+    "difficulty": 4,
+    "tags": ["latin", "belief"]
+  },
+  {
+    "term": "Opus citatum",
+    "definition": "Alıntılanan eser",
+    "example": "Opus citatum was referenced in the footnote",
+    "category": "Literature",
+    "difficulty": 3,
+    "tags": ["latin", "citation"]
+  },
+  {
+    "term": "Omnia vincit labor",
+    "definition": "Çalışma her şeyi yener",
+    "example": "Omnia vincit labor proved true after years of effort",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "work"]
+  },
+  {
+    "term": "Omnia munda mundis",
+    "definition": "Saf olanlara her şey saftır",
+    "example": "Omnia munda mundis shaped their innocent perspective",
+    "category": "Philosophy",
+    "difficulty": 4,
+    "tags": ["latin", "purity"]
+  },
+  {
+    "term": "Otium post negotium",
+    "definition": "İşten sonra dinlenme",
+    "example": "Otium post negotium was his reward for hard work",
+    "category": "Society",
+    "difficulty": 3,
+    "tags": ["latin", "rest"]
+  },
+  {
+    "term": "O fortunatos nimium sua si bona norint",
+    "definition": "Kendi iyiliklerini bilseler çok mutlu olurlardı",
+    "example": "O fortunatos nimium sua si bona norint envied their ignorance",
+    "category": "Philosophy",
+    "difficulty": 5,
+    "tags": ["latin", "happiness"]
+  },
+  {
+    "term": "Omne vivum ex ovo",
+    "definition": "Her canlı yumurtadan gelir",
+    "example": "Omne vivum ex ovo was a breakthrough in biology",
+    "category": "Science",
+    "difficulty": 4,
+    "tags": ["latin", "biology"]
+  },
+  {
+    "term": "Odi et amo, quare id faciam fortasse requiris",
+    "definition": "Nefret ediyorum ve seviyorum, neden böyle yaptığımı belki sorarsın",
+    "example": "Odi et amo, quare id faciam fortasse requiris captured his turmoil",
+    "category": "Literature",
+    "difficulty": 4,
+    "tags": ["latin", "emotion"]
+  },
+  {
+    "term": "Oportet vivere",
+    "definition": "Yaşamak gerekir",
+    "example": "Oportet vivere urged him through dark times",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "life"]
+  },
+  {
+    "term": "Obiter dictum",
+    "definition": "Söylenmiş yan bir söz",
+    "example": "The judge’s obiter dictum added humor to the case",
+    "category": "Law",
+    "difficulty": 4,
+    "tags": ["latin", "legal"]
+  },
+  {
+    "term": "Omne initium difficile est",
+    "definition": "Her başlangıç zordur",
+    "example": "Omne initium difficile est encouraged patience at the start",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "beginnings"]
+  },
+  {
+    "term": "Omne trium perfectum",
+    "definition": "Her şey üçle tamamlanır",
+    "example": "Omne trium perfectum inspired the trilogy’s structure",
+    "category": "Literature",
+    "difficulty": 3,
+    "tags": ["latin", "pattern"]
+  },
+  {
+    "term": "Oculi plus vident quam oculus",
+    "definition": "İki göz bir gözden daha fazla görür",
+    "example": "Oculi plus vident quam oculus proved teamwork’s value",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "vision"]
+  },
+  {
+    "term": "Odium theologicum",
+    "definition": "Teolojik nefret",
+    "example": "Odium theologicum fueled the religious debate",
+    "category": "Religion",
+    "difficulty": 4,
+    "tags": ["latin", "conflict"]
+  },
+  {
+    "term": "Ordo naturalis",
+    "definition": "Doğal düzen",
+    "example": "Ordo naturalis governs the ecosystem’s balance",
+    "category": "Science",
+    "difficulty": 3,
+    "tags": ["latin", "nature"]
+  },
+  {
+    "term": "Oratio pro domo",
+    "definition": "Kendi lehine konuşma",
+    "example": "His oratio pro domo defended his own interests",
+    "category": "Rhetoric",
+    "difficulty": 4,
+    "tags": ["latin", "speech"]
+  },
+  {
+    "term": "Ora et labora, Deus adest, spera et ama",
+    "definition": "Dua et, çalış; Tanrı yanındadır, umut et ve sev",
+    "example": "Ora et labora, Deus adest, spera et ama lifted their spirits",
+    "category": "Religion",
+    "difficulty": 4,
+    "tags": ["latin", "faith"]
+  },
+  {
+    "term": "Omne ignotum pro magnifico",
+    "definition": "Bilinmeyen her şey muhteşemdir",
+    "example": "Omne ignotum pro magnifico drew explorers to the unknown",
+    "category": "Philosophy",
+    "difficulty": 4,
+    "tags": ["latin", "mystery"]
+  },
+  {
+    "term": "Omne vivum ex vivo",
+    "definition": "Her canlı canlıdan gelir",
+    "example": "Omne vivum ex vivo challenged spontaneous generation",
+    "category": "Science",
+    "difficulty": 4,
+    "tags": ["latin", "biology"]
+  },
+  {
+    "term": "Otium cum dignitate",
+    "definition": "Onurlu bir dinlenme",
+    "example": "Otium cum dignitate was his retirement goal",
+    "category": "Society",
+    "difficulty": 3,
+    "tags": ["latin", "rest"]
+  },
+  {
+    "term": "Oblectamentum et doctrina",
+    "definition": "Eğlence ve öğretim",
+    "example": "Oblectamentum et doctrina defined their educational play",
+    "category": "Education",
+    "difficulty": 3,
+    "tags": ["latin", "learning"]
+  },
+  {
+    "term": "Oculus non vidit, nisi iudex sit aequus",
+    "definition": "Göz görmez, eğer hakim adil değilse",
+    "example": "Oculus non vidit, nisi iudex sit aequus demanded fair justice",
+    "category": "Law",
+    "difficulty": 5,
+    "tags": ["latin", "justice"]
+  },
+  {
+    "term": "Omnia mutantur, nos et mutamur in illis",
+    "definition": "Her şey değişir, biz de onlarla değişiriz",
+    "example": "Omnia mutantur, nos et mutamur in illis mirrored their growth",
+    "category": "Philosophy",
+    "difficulty": 4,
+    "tags": ["latin", "change"]
+  },
+  {
+    "term": "Omnia vincit amor, et nos cedamus amori",
+    "definition": "Aşk her şeyi yener, biz de aşka teslim olalım",
+    "example": "Omnia vincit amor, et nos cedamus amori inspired the lovers",
+    "category": "Literature",
+    "difficulty": 3,
+    "tags": ["latin", "love"]
+  },
+  {
+    "term": "Pecunia non olet",
+    "definition": "Para kokmaz",
+    "example": "Pecunia non olet justified accepting questionable funds",
+    "category": "Economics",
+    "difficulty": 2,
+    "tags": ["latin", "money"]
+  },
+  {
+    "term": "Per aspera ad astra",
+    "definition": "Zorluklardan yıldızlara",
+    "example": "Per aspera ad astra became the astronaut’s motto",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "ambition"]
+  },
+  {
+    "term": "Per capita",
+    "definition": "Kişi başına",
+    "example": "Per capita income rose in the region",
+    "category": "Economics",
+    "difficulty": 2,
+    "tags": ["latin", "statistics"]
+  },
+  {
+    "term": "Persona non grata",
+    "definition": "İstenmeyen kişi",
+    "example": "He was declared persona non grata after the scandal",
+    "category": "Politics",
+    "difficulty": 3,
+    "tags": ["latin", "diplomacy"]
+  },
+  {
+    "term": "Post hoc, ergo propter hoc",
+    "definition": "Bundan sonra, bu yüzden",
+    "example": "Post hoc, ergo propter hoc misled them about causality",
+    "category": "Logic",
+    "difficulty": 4,
+    "tags": ["latin", "reasoning"]
+  },
+  {
+    "term": "Pro bono",
+    "definition": "Ücretsiz olarak",
+    "example": "The lawyer worked pro bono for the poor",
+    "category": "Law",
+    "difficulty": 2,
+    "tags": ["latin", "legal"]
+  },
+  {
+    "term": "Pro forma",
+    "definition": "Biçimsel olarak",
+    "example": "The document was issued pro forma for compliance",
+    "category": "Law",
+    "difficulty": 3,
+    "tags": ["latin", "formality"]
+  },
+  {
+    "term": "Pro tempore",
+    "definition": "Geçici olarak",
+    "example": "She served pro tempore until the election",
+    "category": "Politics",
+    "difficulty": 3,
+    "tags": ["latin", "temporary"]
+  },
+  {
+    "term": "Primum non nocere",
+    "definition": "Önce zarar verme",
+    "example": "Primum non nocere is the doctor’s first rule",
+    "category": "Medicine",
+    "difficulty": 2,
+    "tags": ["latin", "ethics"]
+  },
+  {
+    "term": "Pro rata",
+    "definition": "Orantılı olarak",
+    "example": "Payments were distributed pro rata among creditors",
+    "category": "Economics",
+    "difficulty": 3,
+    "tags": ["latin", "proportion"]
+  },
+  {
+    "term": "Prima facie",
+    "definition": "İlk bakışta",
+    "example": "Prima facie evidence supported the claim",
+    "category": "Law",
+    "difficulty": 3,
+    "tags": ["latin", "legal"]
+  },
+  {
+    "term": "Per se",
+    "definition": "Kendiliğinden",
+    "example": "The act wasn’t illegal per se, but unethical",
+    "category": "Law",
+    "difficulty": 3,
+    "tags": ["latin", "intrinsic"]
+  },
+  {
+    "term": "Per diem",
+    "definition": "Günlük olarak",
+    "example": "Travel expenses were reimbursed per diem",
+    "category": "Economics",
+    "difficulty": 2,
+    "tags": ["latin", "daily"]
+  },
+  {
+    "term": "Persona grata",
+    "definition": "Hoş görülen kişi",
+    "example": "She remained persona grata despite the tensions",
+    "category": "Politics",
+    "difficulty": 3,
+    "tags": ["latin", "diplomacy"]
+  },
+  {
+    "term": "Per annum",
+    "definition": "Yıllık olarak",
+    "example": "The salary was calculated per annum",
+    "category": "Economics",
+    "difficulty": 2,
+    "tags": ["latin", "annual"]
+  },
+  {
+    "term": "Per capita income",
+    "definition": "Kişi başına gelir",
+    "example": "Per capita income reflects economic health",
+    "category": "Economics",
+    "difficulty": 2,
+    "tags": ["latin", "statistics"]
+  },
+  {
+    "term": "Prima donna",
+    "definition": "Baş kadın sanatçı",
+    "example": "The prima donna stole the show with her performance",
+    "category": "Art",
+    "difficulty": 2,
+    "tags": ["latin", "performance"]
+  },
+  {
+    "term": "Post mortem",
+    "definition": "Ölümden sonra",
+    "example": "A post mortem revealed the cause of death",
+    "category": "Medicine",
+    "difficulty": 2,
+    "tags": ["latin", "death"]
+  },
+  {
+    "term": "Pro et contra",
+    "definition": "Lehinde ve aleyhinde",
+    "example": "They debated pro et contra before deciding",
+    "category": "Rhetoric",
+    "difficulty": 3,
+    "tags": ["latin", "debate"]
+  },
+  {
+    "term": "Per angusta ad augusta",
+    "definition": "Dar yollardan yüceliğe",
+    "example": "Per angusta ad augusta inspired their perseverance",
+    "category": "Philosophy",
+    "difficulty": 4,
+    "tags": ["latin", "struggle"]
+  },
+  {
+    "term": "Post scriptum (P.S.)",
+    "definition": "Sonradan yazılan",
+    "example": "Post scriptum added a personal note to the letter",
+    "category": "Language",
+    "difficulty": 2,
+    "tags": ["latin", "writing"]
+  },
+  {
+    "term": "Panem et circenses",
+    "definition": "Ekmek ve eğlence",
+    "example": "Panem et circenses kept the masses content",
+    "category": "History",
+    "difficulty": 3,
+    "tags": ["latin", "society"]
+  },
+  {
+    "term": "Per secula seculorum",
+    "definition": "Çağlar boyunca",
+    "example": "Per secula seculorum echoed in the ancient prayer",
+    "category": "Religion",
+    "difficulty": 3,
+    "tags": ["latin", "eternity"]
+  },
+  {
+    "term": "Post meridiem (P.M.)",
+    "definition": "Öğleden sonra",
+    "example": "The meeting was scheduled for 3 P.M.",
+    "category": "Language",
+    "difficulty": 1,
+    "tags": ["latin", "time"]
+  },
+  {
+    "term": "Prima facie evidence",
+    "definition": "İlk bakışta kanıt",
+    "example": "Prima facie evidence was enough to start the case",
+    "category": "Law",
+    "difficulty": 3,
+    "tags": ["latin", "legal"]
+  },
+  {
+    "term": "Pater familias",
+    "definition": "Aile reisi",
+    "example": "The pater familias held authority in Roman homes",
+    "category": "Society",
+    "difficulty": 3,
+    "tags": ["latin", "family"]
+  },
+  {
+    "term": "Pax vobiscum",
+    "definition": "Huzur sizinle olsun",
+    "example": "Pax vobiscum was the priest’s blessing",
+    "category": "Religion",
+    "difficulty": 2,
+    "tags": ["latin", "peace"]
+  },
+  {
+    "term": "Per ardua ad alta",
+    "definition": "Zorluklardan yüksekliklere",
+    "example": "Per ardua ad alta motivated the climbers",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "effort"]
+  },
+  {
+    "term": "Per crucem ad lucem",
+    "definition": "Haçtan ışığa",
+    "example": "Per crucem ad lucem symbolized their redemption",
+    "category": "Religion",
+    "difficulty": 4,
+    "tags": ["latin", "faith"]
+  },
+  {
+    "term": "Per omnia saecula saeculorum",
+    "definition": "Tüm çağlar boyunca",
+    "example": "Per omnia saecula saeculorum concluded the liturgy",
+    "category": "Religion",
+    "difficulty": 3,
+    "tags": ["latin", "eternity"]
+  },
+  {
+    "term": "Per varios casus",
+    "definition": "Çeşitli olaylarla",
+    "example": "Per varios casus shaped his unpredictable life",
+    "category": "Philosophy",
+    "difficulty": 4,
+    "tags": ["latin", "fate"]
+  },
+  {
+    "term": "Persona non persona",
+    "definition": "Kişi olmayan kişi",
+    "example": "Persona non persona described the forgotten man",
+    "category": "Philosophy",
+    "difficulty": 4,
+    "tags": ["latin", "identity"]
+  },
+  {
+    "term": "Per mare, per terras",
+    "definition": "Denizden ve karadan",
+    "example": "Per mare, per terras carried their message far",
+    "category": "History",
+    "difficulty": 3,
+    "tags": ["latin", "travel"]
+  },
+  {
+    "term": "Prima luce",
+    "definition": "İlk ışıkta",
+    "example": "Prima luce marked the start of their journey",
+    "category": "Language",
+    "difficulty": 2,
+    "tags": ["latin", "dawn"]
+  },
+  {
+    "term": "Pro patria",
+    "definition": "Vatan için",
+    "example": "Pro patria inspired their sacrifice",
+    "category": "Politics",
+    "difficulty": 2,
+    "tags": ["latin", "patriotism"]
+  },
+  {
+    "term": "Primum vivere, deinde philosophari",
+    "definition": "Önce yaşa, sonra felsefe yap",
+    "example": "Primum vivere, deinde philosophari prioritized survival",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "life"]
+  },
+  {
+    "term": "Periculum in mora",
+    "definition": "Gecikmede tehlike var",
+    "example": "Periculum in mora urged swift action",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "urgency"]
+  },
+  {
+    "term": "Parva leves capiunt animas",
+    "definition": "Küçük şeyler hafif ruhları etkiler",
+    "example": "Parva leves capiunt animas charmed the carefree",
+    "category": "Psychology",
+    "difficulty": 4,
+    "tags": ["latin", "mind"]
+  },
+  {
+    "term": "Persona muta",
+    "definition": "Sessiz karakter",
+    "example": "Persona muta played a silent role in the drama",
+    "category": "Art",
+    "difficulty": 3,
+    "tags": ["latin", "theater"]
+  },
+  {
+    "term": "Pax in terra",
+    "definition": "Yeryüzünde barış",
+    "example": "Pax in terra was their prayer for peace",
+    "category": "Religion",
+    "difficulty": 2,
+    "tags": ["latin", "peace"]
+  },
+  {
+    "term": "Primus inter pares",
+    "definition": "Eşitler arasında birinci",
+    "example": "Primus inter pares led the council humbly",
+    "category": "Politics",
+    "difficulty": 3,
+    "tags": ["latin", "leadership"]
+  },
+  {
+    "term": "Post tenebras lux",
+    "definition": "Karanlıktan sonra ışık",
+    "example": "Post tenebras lux became their hope after despair",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "hope"]
+  },
+  {
+    "term": "Per fas et nefas",
+    "definition": "Doğru ve yanlış yollarla",
+    "example": "Per fas et nefas described his ruthless ambition",
+    "category": "Philosophy",
+    "difficulty": 4,
+    "tags": ["latin", "ethics"]
+  },
+  {
+    "term": "Prima inter arma",
+    "definition": "Silahlar arasında birinci",
+    "example": "Prima inter arma honored the war’s greatest hero",
+    "category": "History",
+    "difficulty": 3,
+    "tags": ["latin", "war"]
+  },
+  {
+    "term": "Per vias rectas",
+    "definition": "Doğru yollarla",
+    "example": "Per vias rectas led them to honest success",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "integrity"]
+  },
+  {
+    "term": "Per multos annos",
+    "definition": "Birçok yıl boyunca",
+    "example": "Per multos annos celebrated their long friendship",
+    "category": "Language",
+    "difficulty": 2,
+    "tags": ["latin", "time"]
+  },
+  {
+    "term": "Periculum est in mora",
+    "definition": "Gecikmede tehlike vardır",
+    "example": "Periculum est in mora hastened their decision",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "urgency"]
+  },
+  {
+    "term": "Per aspera ad meliora",
+    "definition": "Zorluklardan daha iyiye",
+    "example": "Per aspera ad meliora promised better days ahead",
+    "category": "Philosophy",
+    "difficulty": 3,
+    "tags": ["latin", "hope"]
+  },
+  {
+    "term": "Pecuniae obediunt omnia",
+    "definition": "Her şey paraya boyun eğer",
+    "example": "Pecuniae obediunt omnia explained their corruption",
+    "category": "Economics",
+    "difficulty": 3,
+    "tags": ["latin", "money"]
+  },
+  {
+    "term": "Patria potestas",
+    "definition": "Babanın otoritesi",
+    "example": "Patria potestas ruled Roman family life",
+    "category": "Society",
+    "difficulty": 3,
+    "tags": ["latin", "family"]
+  },
+  {
+    "term": "Rara avis",
+    "definition": "Nadir bir kuş",
+    "example": "She was a rara avis in her unique talent",
+    "category": "Language",
+    "difficulty": 3,
+    "tags": ["latin", "rarity"]
+  },
+  {
+    "term": "Res publica",
+    "definition": "Kamu işleri",
+    "example": "Res publica united the citizens for the common good",
+    "category": "Politics",
+    "difficulty": 3,
+    "tags": ["latin", "state"]
+  },
+  {
+    "term": "Res gestae",
+    "definition": "Yapılan işler",
+    "example": "Res gestae chronicled the emperor’s achievements",
+    "category": "History",
+    "difficulty": 3,
+    "tags": ["latin", "deeds"]
+  },
+  {
+    "term": "Requiescat in pace (R.I.P.)",
+    "definition": "Huzur içinde yatsın",
+    "example": "Requiescat in pace was engraved on the tombstone",
+    "category": "Religion",
+    "difficulty": 2,
+    "tags": ["latin", "death"]
+  }
+]
